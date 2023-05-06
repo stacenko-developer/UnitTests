@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Section", "Section\Section.csproj", "{32C10976-73AF-4B75-9F04-55537A26C524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SectionTests", "SectionTests\SectionTests.csproj", "{213561D9-3F55-4B24-92A3-9BA1636EC996}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validator", "Validator\Validator.csproj", "{E086C560-C0C7-4D63-925E-9F76215ED435}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32C10976-73AF-4B75-9F04-55537A26C524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C10976-73AF-4B75-9F04-55537A26C524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C10976-73AF-4B75-9F04-55537A26C524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C10976-73AF-4B75-9F04-55537A26C524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{213561D9-3F55-4B24-92A3-9BA1636EC996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{213561D9-3F55-4B24-92A3-9BA1636EC996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{213561D9-3F55-4B24-92A3-9BA1636EC996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{213561D9-3F55-4B24-92A3-9BA1636EC996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E086C560-C0C7-4D63-925E-9F76215ED435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E086C560-C0C7-4D63-925E-9F76215ED435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E086C560-C0C7-4D63-925E-9F76215ED435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E086C560-C0C7-4D63-925E-9F76215ED435}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
