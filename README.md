@@ -1,7 +1,7 @@
 # UnitTests
 
 
-## Оглавление :arrow_down_small:
+## Оглавление
 
 
 1. [xUnit](#xUnit)
