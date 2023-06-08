@@ -9,10 +9,10 @@
     2. [Вызов тестирующего метода с несколькими параметрами](#Вызов-тестирующего-метода-с-несколькими-параметрами)
     3. [Тестирование бросания исключения типа ArgumentNullException](#Тестирование-бросания-исключения-типа-ArgumentNullException)
 2. [NSubstitute](#NSubstitute)
-    1. [Проверка вызова подмены через .Received() и .DidNotReceive()](#Проверка-вызова-подмены-через-.Received()-и-.DidNotReceive())
+    1. [Проверка вызова подмены через Received() и DidNotReceive()](#Проверка-вызова-подмены-через-Received()-и-DidNotReceive())
     2. [Проверка передачи аргументов через Arg.Any/Arg.Is](#Проверка-передачи-аргументов-через-Arg.Any/Arg.Is)
-    3. [Условные действия через .When().Do()](#Условные-действия-через-.When().Do())
-    4. [Замещение одного метода через .ForPartsOf()](#Замещение-одного-метода-через-.ForPartsOf())
+    3. [Условные действия через When().Do()](#Условные-действия-через-When().Do())
+    4. [Замещение одного метода через ForPartsOf()](#Замещение-одного-метода-через-ForPartsOf())
 
 
 ## xUnit
@@ -101,7 +101,7 @@ NSubstitute является удобной заменой mock-библиоте
 private Section _section = Substitute.For<Section>(DefaultName, DefaultCode);
 ```
 ____
-### Проверка вызова подмены через .Received() и .DidNotReceive()
+### Проверка вызова подмены через Received() и DidNotReceive()
 ```C#
 /// <summary>
 /// Обновление поля с существующим кодом.
@@ -145,7 +145,7 @@ public void AddField_WithCorrectArguments_ShouldAddField()
 }
 ```
 ____
-### Условные действия через .When().Do()
+### Условные действия через When().Do()
 ```C#
 /// <summary>
 /// Добавление поля в раздел с колбэком. 
@@ -164,7 +164,7 @@ public void GetField_WithCallBack_ShouldGetCallBack()
 }
 ```
 ____
-### Замещение одного метода через .ForPartsOf()
+### Замещение одного метода через ForPartsOf()
 ```C#
 /// <summary>
 /// Получение корректного значения свойства названия раздела по умолчанию.
