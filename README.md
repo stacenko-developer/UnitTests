@@ -17,7 +17,7 @@
 
 ## xUnit
 xUnit позволяет тестировать различные элементы программного обеспечения, например, функции и классы. Главное преимущество xUnit framework'ов заключается в возможности выполнять автоматическое тестирование без необходимости писать одни и те же тесты много раз и запоминать правильные результаты их выполнения. <br /><br />
-
+____
 ### Тестирование корректной отработки создания секции с помощью конструктора с параметрами
 ```C#
 /// <summary>
@@ -36,8 +36,8 @@ public void GetSectionProperties_FromCorrectSection_ShouldGetCorrectProperties()
 ```
 :black_square_button: Чтобы ваш тест запускался, укажите над методом __[TestMethod]__; <br />
 :black_square_button: Тестирующий метод должен быть разбит на три части: объявление переменных, операции, выполнение проверок; <br />
-:black_square_button: Если __хотя бы один__ Assert.IsTrue() вернет false, тест не будет выполнен успешно; <br /><br />
-
+:black_square_button: Если __хотя бы один__ Assert.IsTrue() вернет false, тест не будет выполнен успешно <br /><br />
+____
 ### Вызов тестирующего метода с несколькими параметрами
 ```C#
 /// <summary>
@@ -68,9 +68,9 @@ public void UpdateField_WithCorrectArguments_ShouldUpdateField(Type type, string
         && section.FieldsCount == correctFieldsCount);
 }
 ```
-> Для выполнения теста несколько раз с разными параметрами используйте __DataRow__
+:black_square_button: Для выполнения теста несколько раз с разными параметрами используйте __DataRow__
 <br /><br />
-<br /><br />
+____
 ### Тестирование бросания исключения типа ArgumentNullException
 ```C#
 /// <summary>
@@ -89,7 +89,6 @@ public void CreateSectionByTwoArguments_WithNullValues_ShouldThrowArgumentNullEx
     new Section(name, code);
 }
 ```
-:black_square_button: Чтобы ваш тест отработал корректно при сработанном исключении, необходимо добавить __[ExpectedException]__; <br />
-:black_square_button: Чтобы ваш тест отработал корректно при сработанном исключении, необходимо добавить __[ExpectedException]__; <br /><br />
+:black_square_button: Чтобы ваш тест отработал корректно при сработанном исключении, необходимо добавить __[ExpectedException]__ <br /><br />
 [:arrow_up:Оглавление](#Оглавление)
 ## NSubstitute
