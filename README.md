@@ -9,10 +9,10 @@
     2. [Вызов тестирующего метода с несколькими параметрами](#Вызов-тестирующего-метода-с-несколькими-параметрами)
     3. [Тестирование бросания исключения типа ArgumentNullException](#Тестирование-бросания-исключения-типа-ArgumentNullException)
 2. [NSubstitute](#NSubstitute)
-    1. [Маркированный](#Маркированный)
-    2. [Нумерованный](#Нумерованный)
-    3. [Смешанные списки](#Смешанные-списки)
-    4. [Список задач](#Список-задач)
+    1. [Проверка вызова подмены через .Received() и .DidNotReceive()](#Проверка-вызова-подмены-через-.Received()-и-.DidNotReceive())
+    2. [Проверка передачи аргументов через Arg.Any/Arg.Is](#Проверка-передачи-аргументов-через-Arg.Any/Arg.Is)
+    3. [Условные действия через .When().Do()](#Условные-действия-через-.When().Do())
+    4. [Замещение одного метода через .ForPartsOf()](#Замещение-одного-метода-через-.ForPartsOf())
 
 
 ## xUnit
@@ -92,3 +92,90 @@ public void CreateSectionByTwoArguments_WithNullValues_ShouldThrowArgumentNullEx
 :black_square_button: Чтобы ваш тест отработал корректно при сработанном исключении, необходимо добавить __[ExpectedException]__ <br /><br />
 [:arrow_up:Оглавление](#Оглавление)
 ## NSubstitute
+[![Nuget](https://img.shields.io/nuget/v/NSubstitute.svg)](https://www.nuget.org/packages/NSubstitute) <br />
+NSubstitute является удобной заменой mock-библиотек .NET. Для начала нам необходимо создать объект, который мы будем настраивать в зависимости от наших потребностей:
+```C#
+/// <summary>
+/// Раздел.
+/// </summary>
+private Section _section = Substitute.For<Section>(DefaultName, DefaultCode);
+```
+____
+### Проверка вызова подмены через .Received() и .DidNotReceive()
+```C#
+/// <summary>
+/// Обновление поля с существующим кодом.
+/// </summary>
+[TestMethod]
+public void UpdateField_WithCorrectArguments_ShouldUpdateField()
+{
+    _section.IsFieldExistence(Arg.Is(DefaultCode))
+        .Returns(true);
+    _section.IsFieldExistence(Arg.Is(_newCode))
+        .Returns(false);
+    _section.GetField(Arg.Is(DefaultCode))
+        .Returns(_defaultField);
+
+    _section.UpdateField(DefaultCode, _newCode, DefaultName, DefaultType,
+        _defaultRequiredFieldFlag, DefaultIntValueInString);
+
+    _section.Received().IsFieldExistence(Arg.Is(DefaultCode));
+    _section.Received().IsFieldExistence(Arg.Is(_newCode));
+    _section.Received().GetField(Arg.Is(DefaultCode));
+}
+```
+:one: Перед обновлением параметров поля в первую очередь мы должны убедиться, что поле, данные которые мы хотим изменить, существует. Также __важно__, что новое название для нашего поля не должно быть кем-то занято. <br />
+:two: Также настраиваем метод __GetField__, который вернет нам объект поля по его коду. После выполнения метода __UpdateField__ мы проверяем, были ли вызваны методы __IsFieldExistence__ и __GetField__. <br /><br />
+:x: __Обратите внимание!__ Для того, чтобы возвращаемое значение метода можно было настроить, он должен быть __виртуальным__ (иметь модификатор __virtual__).
+____
+### Проверка передачи аргументов через Arg.Any/Arg.Is
+```C#
+/// <summary>
+/// Добавление поля с корректными параметрами.
+/// </summary>
+[TestMethod]
+public void AddField_WithCorrectArguments_ShouldAddField()
+{
+    _section.IsFieldExistence(Arg.Is(DefaultCode))
+        .Returns(false);
+    _section.AddField(DefaultName, DefaultCode, DefaultType, _defaultRequiredFieldFlag,
+        DefaultIntValueInString);
+    _section.Received().IsFieldExistence(Arg.Is(DefaultCode));
+    _section.DidNotReceive().GetField(Arg.Any<string>());
+}
+```
+____
+### Условные действия через .When().Do()
+```C#
+/// <summary>
+/// Добавление поля в раздел с колбэком. 
+/// </summary>
+[TestMethod]
+public void GetField_WithCallBack_ShouldGetCallBack()
+{
+    var index = 0;
+    _section.When(section => section.GetField(DefaultCode))
+        .Do(section => index++);
+    var correctIndex = 1;
+
+    _section.GetField(DefaultCode);
+
+    Assert.IsTrue(index == correctIndex);
+}
+```
+____
+### Замещение одного метода через .ForPartsOf()
+```C#
+/// <summary>
+/// Получение корректного значения свойства названия раздела по умолчанию.
+/// </summary>
+[TestMethod]
+public void GetDefaultSectionNameProperty_WithForPartsOf_ShouldGetCorrectResult()
+{
+    var section = Substitute.ForPartsOf<Section>(DefaultName, DefaultCode);
+    var correctDefaultSectionName = "Название раздела по умолчанию";
+
+    Assert.IsTrue(section.DefaultSectionName == correctDefaultSectionName);
+}
+```
+[:arrow_up:Оглавление](#Оглавление)
